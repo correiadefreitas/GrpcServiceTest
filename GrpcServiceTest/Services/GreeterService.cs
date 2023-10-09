@@ -1,5 +1,7 @@
 using Grpc.Core;
 using GrpcServiceTest;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GrpcServiceTest.Services
 {
@@ -13,10 +15,14 @@ namespace GrpcServiceTest.Services
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            return Task.FromResult(new HelloReply
-            {
-                Message = "Hello " + request.Name
-            });
+            var ret = new HelloReply { Message = "Hello " + request.Name, Resultados = { 
+                    new Resultado() { Title=" - Title 1", Url="wsx", Snippets = {"123"}},
+                    new Resultado() { Title = " - Title 2", Url = "qaz", Snippets = {"abc"}}
+                } 
+            };
+
+            var retTask = Task.FromResult(ret);
+            return retTask;
         }
     }
 }

@@ -4,6 +4,17 @@ option csharp_namespace = "GrpcServiceTest";
 
 package greet;
 
+enum Corpus {
+  CORPUS_UNSPECIFIED = 0;
+  CORPUS_UNIVERSAL = 1;
+  CORPUS_WEB = 2;
+  CORPUS_IMAGES = 3;
+  CORPUS_LOCAL = 4;
+  CORPUS_NEWS = 5;
+  CORPUS_PRODUCTS = 6;
+  CORPUS_VIDEO = 7;
+}
+
 // The greeting service definition.
 service Greeter {
   // Sends a greeting
@@ -13,9 +24,18 @@ service Greeter {
 // The request message containing the user's name.
 message HelloRequest {
   string name = 1;
+  uint32 age = 2;
+  Corpus corpus = 3;
 }
 
 // The response message containing the greetings.
 message HelloReply {
   string message = 1;
+  repeated Resultado resultados = 2;
+}
+
+message Resultado {
+  string url = 1;
+  string title = 2;
+  repeated string snippets = 3;
 }
